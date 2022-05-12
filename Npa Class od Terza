@@ -1,0 +1,108 @@
+using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows.Forms;
+
+namespace Terziev_Matevž
+{
+    public partial class Form1 : Form
+    {
+        public Form1()
+        {
+            //To so tabele za dgv
+            InitializeComponent();
+            string[] predmeti = { "pro", "mat", "slo", "fiz", "ang", "nub", "npa", "nsa", "exp", "sus" };
+            int[] izpiti = new int[10];
+            int[] vaje = new int[10];
+            Generator(izpiti, vaje);
+            
+            //vnaša dokler jih ni dost
+            for (int i = 0; i < predmeti.Length; i++)
+            {
+                dataGridView1.Columns.Add("predmeti", predmeti[i]);
+                dataGridView1.Rows[0].Cells[i].Value = izpiti[i].ToString();
+            }
+            dataGridView1.Rows.Add(3);
+            for (int i = 0; i < predmeti.Length; i++)
+            {
+                dataGridView1.Rows[1].Cells[i].Value = vaje[i].ToString();
+            }
+            int[] avg = new int[10];
+            povprecjeOcen(izpiti, vaje, avg);
+            for (int i = 0; i < avg.Length ; i++)
+            {
+                dataGridView1.Rows[2].Cells[i].Value = avg[i].ToString();
+            }
+
+        }
+        public static void Generator(int [] izpiti, int [] vaje)
+        {
+            Random r = new Random();
+            for (int i = 0; i < izpiti.Length; i++)
+            {
+                izpiti[i] = r.Next(0, 11);
+                if (izpiti[i] > 5)
+                {
+                    vaje[i] = r.Next(6, 11);
+                }
+                else
+                {
+                    vaje[i] = r.Next(0, 11);
+                }
+                if (izpiti[i] == 0)
+                {
+                    vaje[i] = 0;
+                }
+                if (izpiti[i] <6)
+                {
+                    vaje[i] = 0;
+                }
+
+            }
+        }
+        static void povprecjeOcen(int[] izpiti, int[] vaje, int[] avg)
+        {
+            int avg_izpiz = 0;
+            int sum_iz = 0;
+            int avg_vaje = 0;
+            int sum_va = 0;
+            int iz = 0;
+            int va = 0;
+            
+            for (int i = 0; i < izpiti.Length; i++)
+            {
+                if (izpiti[i] > 6)
+                {
+                    avg[i] = (izpiti[i] + vaje[i]) / 2;
+                    //iz++;
+                }
+                else
+                {
+                    avg[i] = 0;
+                }
+            }
+            
+            //avg_izpiz = sum_iz / iz;
+            //MessageBox.Show("Povprečje izpitov je " + avg_izpiz);
+            //for (int i = 0; i < vaje.Length; i++)
+            //{
+            //    if (vaje[i] > 6)
+            //    {
+            //        sum_va += vaje[i];
+            //        va++;
+            //    }
+            //}
+            //avg_vaje = sum_va / va;
+            //MessageBox.Show("Povprečje vaje je " + avg_vaje);
+        }
+        private void moto1_Load(object sender, EventArgs e)
+        {
+
+        }
+    }
+}
