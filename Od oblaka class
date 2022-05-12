@@ -1,0 +1,56 @@
+using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Drawing;
+using System.Data;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows.Forms;
+
+namespace oblakjan
+{
+    public partial class Moto : UserControl
+    {
+        public Moto()
+        {
+            InitializeComponent();
+        }
+
+        private void textBox1_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+        public bool oblak = true;
+
+        private void textBox1_MouseClick(object sender, MouseEventArgs e)
+        {
+            string a = textBox1.Text;
+            string rezultat = "";
+            for (int i = 0; i < a.Length; i++)
+            {
+                if (a[i] != ' ')
+                {
+                    rezultat += Convert.ToChar(a[i] - 2);
+                }
+                else
+                {
+                    rezultat += " ";
+                }
+                
+            }
+            if (oblak)
+            {
+                oblak = false;
+                textBox1.Text = rezultat;
+            }
+            else 
+            {
+                textBox1.Text = "PC HCMUW LG HCLP";
+                oblak = true;
+            }
+            
+        }
+    }
+}
+# NPAclassTest
