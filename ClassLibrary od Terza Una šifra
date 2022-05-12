@@ -1,0 +1,81 @@
+using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Drawing;
+using System.Data;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows.Forms;
+
+namespace Knjiznica
+{
+    public partial class Moto : UserControl
+    {
+        public Moto()
+        {
+            InitializeComponent();
+        }
+
+        private void textBox1_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+        bool fax = true;
+        string text = " "; 
+        private void textBox1_Click(object sender, EventArgs e)
+        {
+            if (fax)
+            {
+                text = textBox1.Text;
+                string rez = " ";
+                int rek = 0;
+                int rezu = 0;
+                char odg = ' ';
+                for (int i = 0; i < text.Length; i++)
+                {
+                    if (text[i] != ' ')
+                    {
+                        rek = (char)text[i];
+                        rezu = rek - 2;
+                        odg = (char)rezu;
+                        rez += odg;
+                    }
+                    else
+                    {
+                        rez += ' ';
+                    }
+
+                }
+                textBox1.Text = rez;
+            }
+            else
+            {
+                text = textBox1.Text;
+                string rez = " ";
+                int rek = 0;
+                int rezu = 0;
+                char odg = ' ';
+                for (int i = 0; i < text.Length; i++)
+                {
+                    if (text[i] != ' ')
+                    {
+                        rek = (char)text[i];
+                        rezu = rek + 2;
+                        odg = (char)rezu;
+                        rez += odg;
+                    }
+                    else
+                    {
+                        rez += ' ';
+                    }
+
+                }
+                textBox1.Text = rez;
+            }
+            fax = !fax;
+
+
+        }
+    }
+}
