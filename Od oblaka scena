@@ -1,0 +1,82 @@
+using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows.Forms;
+
+namespace WindowsFormsApp1
+{
+    public partial class Form1 : Form
+    {
+        public Form1()
+        {
+            InitializeComponent();
+        }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+            string[] predmeti = { "NPA", "NSA", "SPO", "TRA", "DOP", "PHA", "TRE", "ANG", "GEO", "SLO" };
+            int[] izpit = new int[predmeti.Length];
+            int[] vaje = new int[predmeti.Length];
+            izpit = Izpit(izpit);
+            vaje = Vaje(vaje,izpit);
+            for (int i = 0; i < predmeti.Length; i++)
+            {
+                dataGridView1.Rows.Add(predmeti[i], izpit[i], vaje[i]);
+            }
+            double povrpecje_izpit;
+            double povprecje_vaje; 
+            dataGridView1.Rows.Add("Povprecje");
+            
+        }
+        public int[] Izpit(int[] izpit)
+        {
+            Random nakljucno = new Random();
+            for (int i = 0; i < izpit.Length; i++)
+            {
+                izpit[i] = nakljucno.Next(1, 11);
+
+            }
+            return izpit;
+        }
+        public int[] Vaje(int[] vaje,int[] izpit)
+        {
+            Random nakljucno = new Random();
+            for (int i = 0; i < vaje.Length; i++)
+            {
+                if (izpit[i] == 0)
+                    vaje[i] = 0;
+                else if (izpit[i] <= 5)
+                    vaje[i] = 0;
+                else if (izpit[i] <= 10 && izpit[i] > 5)
+                    vaje[i] = nakljucno.Next(5, 11);
+
+
+            }
+            return vaje;
+        }
+        public double Povprecje(int[] vaje)
+        {
+            double rez = 0;
+            for (int i = 0; i < vaje.Length; i++)
+            {
+                if (vaje[i] > 5)
+                    rez += vaje[i];                                  
+            }
+            return rez/vaje.Length;
+        }
+
+        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
+    }
+        
+   }
+
+
+
